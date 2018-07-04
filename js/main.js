@@ -1,4 +1,9 @@
-var result = `
+var result = `/*
+ * 面试官你好，我是XXX
+ * 只用文字作做我介绍太单调了
+ * 我就用代码来介绍吧
+ * 首先准备一些样式
+ */
 body {
     background: red;
 }
