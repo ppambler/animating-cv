@@ -25,12 +25,15 @@
 #paper > .content {
     padding-left: 16px;
     font-size: 15px;
+    height: 100vh;
+    overflow: hidden;
 }
 
 #paper > .markdownToHtml {
     padding-left: 32px;
     background: white;
-    height: 100%;
+    height: 100vh;
+    overflow: auto;
     width: 100%;
     font-size: 15px;
 }

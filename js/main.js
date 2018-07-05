@@ -46,6 +46,7 @@ function writeCode(prefix,code,preTag,styleTag,createPaper) {
     let domPreTag = document.querySelector(preTag)
     let domStyleTag = document.querySelector(styleTag)
     let n = 0
+    console.log(n)
     let id = setInterval(() => {
         n += 1
         domPreTag.innerHTML = Prism.highlight(prefix+code.substring(0, n), Prism.languages.css, 'css')
@@ -102,27 +103,22 @@ var result2 = `#code {
     width: 100%;
 }
 
-#paper{
-
-}
     `
 
 var result3 = `
-/* 
- *我需要把markdown转化成html 
- *为此我用到了一个优秀的库 markded.js
- * /
+/* 我需要把markdown转化成html */
+/* 为此我用到了一个优秀的库 markded.js */
+
+
+
+
+
+
 `
 
 var result4 = `
-
-
-
-
-/*
- *这就是我的会动的简历
- *谢谢观赏
- */
+/* 这就是我的会动的简历 */
+/* 谢谢观赏 */
 `
 function createPaper(xxx) {
     var paper = document.createElement('div')
@@ -153,6 +149,26 @@ xxx 毕业
 - QQ 1134720895
 - Email 13790020331@163.com
 - 手机 13790020331
+
+# 联系方式
+- QQ 1134720895
+- Email 13790020331@163.com
+- 手机 13790020331
+
+# 联系方式
+- QQ 1134720895
+- Email 13790020331@163.com
+- 手机 13790020331
+
+# 联系方式
+- QQ 1134720895
+- Email 13790020331@163.com
+- 手机 13790020331
+
+# 联系方式
+- QQ 1134720895
+- Email 13790020331@163.com
+- 手机 13790020331
 `
 function writeMardown(paperSelector,markdown, fn) {
     let domPaper = document.querySelector(paperSelector)
@@ -166,7 +182,7 @@ function writeMardown(paperSelector,markdown, fn) {
             window.clearInterval(id)
             fn()
         } 
-    }, 0)
+    }, 70)
 }
 
 function markdownToHtml(content,fn) {
