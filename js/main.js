@@ -48,11 +48,15 @@ function writeCode(prefix,code,preTag,styleTag,createPaper) {
         n += 1
         domPreTag.innerHTML = Prism.highlight(prefix+code.substring(0, n), Prism.languages.css, 'css')
         domStyleTag.innerHTML =prefix+ code.substring(0, n)
+        // 拉10000像素的滚动条，拉不动就拉到拉不动位置
+        // domPreTag.scrollTop = 10000
+        // 换个，换个能拉的最大高度
+        domPreTag.scrollTop = domPreTag.scrollHeight
         console.log(`输出了${n}字符`)
         if (n >= result.length) {
             window.clearInterval(id)
             createPaper()
-        }
+        } 
     }, 10)
 }
 
