@@ -39,23 +39,26 @@ body {
 /* 不玩了，我来介绍一下我自己吧 */
 /* 我需要一张白纸 */
 `
+// 把code写到#code和style标签里去
+function writeCode(code,preTag,styleTag,createPaper) {
+    let domPreTag = document.querySelector(preTag)
+    let domStyleTag = document.querySelector(styleTag)
+    let n = 0
+    let id = setInterval(() => {
+        n += 1
+        domPreTag.innerHTML = Prism.highlight(code.substring(0, n), Prism.languages.css, 'css')
+        domStyleTag.innerHTML = code.substring(0, n)
+        console.log(`输出了${n}字符`)
+        if (n >= result.length) {
+            window.clearInterval(id)
+            createPaper()
+        }
+    }, 10)
+}
 
-var n = 0
-var id = setInterval(() => {
-    n += 1
-    code.innerHTML = result.substring(0, n)
-    code.innerHTML = Prism.highlight(code.innerHTML, Prism.languages.css, 'css')
-    styleTag.innerHTML = result.substring(0, n)
-    console.log(`第${n}轮`)
-    if (n >= result.length) {
-        window.clearInterval(id)
-        // 结束了，就开始执行第二个程序
-        fn2()
-        fn3(result)
-    }
-}, 10)
+writeCode(result,'#code','#styleTag',createPaper)
 
-function fn2() {
+function createPaper() {
     var paper = document.createElement('div')
     paper.id = 'paper'
     document.body.appendChild(paper)
