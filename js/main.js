@@ -8,12 +8,12 @@ var result = `/*
 * {
     transition: all 1s;
 }
+
 body {
     background: rgb(222,222,222);
-    font-size: 16px;
 }
 #code {
-    border: 1px solid red;
+    border: 1px solid #444;
     padding: 16px; 
 }
 
@@ -59,14 +59,20 @@ function writeCode(prefix,code,preTag,styleTag,createPaper) {
             window.clearInterval(id)
             createPaper()
         } 
-    }, 0)
+    }, 70)
 }
 
 writeCode('',result,'#code','#styleTag',()=>{
     createPaper(()=>{
         writeCode(result,result2,'#code','#styleTag',()=>{
             writeMardown('#paper > .content', md, ()=> {
-                alert('谢谢观看！')
+                writeCode(result+result2,result3,'#code','#styleTag',()=>{
+                    markdownToHtml(md, ()=>{
+                        writeCode(result+result2+result3,result4,'#code','#styleTag',()=>{
+                            console.log('完成')
+                        })
+                    })
+                })
             })
         })
     })
@@ -85,7 +91,7 @@ var result2 = `#code {
     right: 0;
     width: 50%;
     height: 100%;
-    background: black;
+    background-color: #444;
     justify-content: center;
     align-item: center;
     padding: 16px;
@@ -100,6 +106,24 @@ var result2 = `#code {
 
 }
     `
+
+var result3 = `
+/* 
+ *我需要把markdown转化成html 
+ *为此我用到了一个优秀的库 markded.js
+ * /
+`
+
+var result4 = `
+
+
+
+
+/*
+ *这就是我的会动的简历
+ *谢谢观赏
+ */
+`
 function createPaper(xxx) {
     var paper = document.createElement('div')
     paper.id = 'paper'
@@ -112,26 +136,23 @@ function createPaper(xxx) {
 
 var md = `
 # 自我介绍
-
-我叫 唐小桃
-广东轻工职业技术学院毕业
+我叫 xxx
+xxx 毕业
 自学前端半年
 希望应聘前端开发岗位
 
-#技能介绍
-
+# 技能介绍
 熟悉 JavaScript
 
 # 项目介绍
-
 1. 不完全仿苹果轮播
 2. 会动的简历
 3. 简单的画板
 
-# 练习方式
-QQ 1134720895
-Email 13790020331@163.com
-手机 13790020331
+# 联系方式
+- QQ 1134720895
+- Email 13790020331@163.com
+- 手机 13790020331
 `
 function writeMardown(paperSelector,markdown, fn) {
     let domPaper = document.querySelector(paperSelector)
@@ -146,4 +167,12 @@ function writeMardown(paperSelector,markdown, fn) {
             fn()
         } 
     }, 0)
+}
+
+function markdownToHtml(content,fn) {
+    var domPre = document.createElement('pre')
+    domPre.className = 'markdownToHtml'
+    domPre.innerHTML = marked(content)
+    document.querySelector('#paper > .content').replaceWith(domPre)
+    fn()
 }

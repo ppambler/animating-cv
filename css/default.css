@@ -5,6 +5,7 @@
 * {
     box-sizing: border-box;
 }
+
 .token.selector {
     color: black;
 }
@@ -23,4 +24,13 @@
 }
 #paper > .content {
     padding-left: 16px;
+    font-size: 15px;
+}
+
+#paper > .markdownToHtml {
+    padding-left: 32px;
+    background: white;
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
 }
