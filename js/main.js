@@ -38,6 +38,8 @@ body {
 
 /* 不玩了，我来介绍一下我自己吧 */
 /* 我需要一张白纸 */
+
+/* 不过在此之前需要给白纸挪个位置 */
 `
 // 把code写到#code和style标签里去
 function writeCode(prefix,code,preTag,styleTag,createPaper) {
@@ -53,29 +55,95 @@ function writeCode(prefix,code,preTag,styleTag,createPaper) {
         // 换个，换个能拉的最大高度
         domPreTag.scrollTop = domPreTag.scrollHeight
         console.log(`输出了${n}字符`)
-        if (n >= result.length) {
+        if (n >= code.length) {
             window.clearInterval(id)
             createPaper()
         } 
-    }, 10)
+    }, 0)
 }
 
 writeCode('',result,'#code','#styleTag',()=>{
     createPaper(()=>{
-        writeCode(result,result2,'#code','#styleTag')
+        writeCode(result,result2,'#code','#styleTag',()=>{
+            writeMardown('#paper > .content', md, ()=> {
+                alert('谢谢观看！')
+            })
+        })
     })
 })
 
-var result2 = `#paper {
-    width: 100px;
-    height: 100px;
-    background: red;
+var result2 = `#code {
+    position: fixed;
+    left: 0;
+    width: 50%;
+    height: 100%;
+}
+
+/* 白纸变变变 */
+#paper {
+    position: fixed;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: black;
+    justify-content: center;
+    align-item: center;
+    padding: 16px;
+}
+#paper > .content {
+    background: white;
+    height: 100%;
+    width: 100%;
+}
+
+#paper{
+
 }
     `
 function createPaper(xxx) {
     var paper = document.createElement('div')
     paper.id = 'paper'
+    var content = document.createElement('pre')
+    content.className = 'content'
+    paper.appendChild(content)
     document.body.appendChild(paper)
     xxx()
 }  
 
+var md = `
+# 自我介绍
+
+我叫 唐小桃
+广东轻工职业技术学院毕业
+自学前端半年
+希望应聘前端开发岗位
+
+#技能介绍
+
+熟悉 JavaScript
+
+# 项目介绍
+
+1. 不完全仿苹果轮播
+2. 会动的简历
+3. 简单的画板
+
+# 练习方式
+QQ 1134720895
+Email 13790020331@163.com
+手机 13790020331
+`
+function writeMardown(paperSelector,markdown, fn) {
+    let domPaper = document.querySelector(paperSelector)
+    let n = 0
+    let id = setInterval(() => {
+        n += 1
+        domPaper.innerHTML = markdown.substring(0, n)
+        domPaper.scrollTop = domPaper.scrollHeight
+        console.log(`输出了${n}字符`)
+        if (n >= markdown.length) {
+            window.clearInterval(id)
+            fn()
+        } 
+    }, 0)
+}

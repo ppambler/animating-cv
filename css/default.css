@@ -21,3 +21,6 @@
     height: 100vh;
     overflow: hidden;
 }
+#paper > .content {
+    padding-left: 16px;
+}
